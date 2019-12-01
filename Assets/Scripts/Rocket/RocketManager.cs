@@ -33,7 +33,8 @@ public class RocketManager : MonoBehaviour
         chooseRocketBody();
         Initialized = true;
     }
-     
+
+    float localRot;
     private void FixedUpdate()
     {
         if (isFlying)
@@ -45,6 +46,12 @@ public class RocketManager : MonoBehaviour
             rigidBody.AddForce(curDir * acceleration, ForceMode.Acceleration);
 
             CatchGravitationalWaves();
+
+
+            localRot += Time.deltaTime * 360; 
+            trailEffect.transform.localRotation= Quaternion.Euler(new Vector3(0, localRot, 0)); 
+            rocketPlayer.transform.localRotation=Quaternion.Euler( new Vector3(0, localRot, 0));
+            rocketEnemy.transform.localRotation = Quaternion.Euler(new Vector3(0, localRot, 0));
         }
     }
 

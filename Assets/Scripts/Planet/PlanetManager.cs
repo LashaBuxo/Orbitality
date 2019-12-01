@@ -170,7 +170,7 @@ public class PlanetManager : MonoBehaviour
     //Must be called from Rocket which exploded on planet 
     public void DamageReceived()
     {
-        Debug.Log("Damage Received on: " + transform.name);
+        //Debug.Log("Damage Received on: " + transform.name);
         currentHP = Mathf.Max(0, currentHP - GameManager.instance.gameConfig.rocketDamage);
         updateHealthBar();
     }

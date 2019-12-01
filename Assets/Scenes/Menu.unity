@@ -5448,7 +5448,6 @@ MonoBehaviour:
   minEnemiesSlider: {fileID: 1461999008}
   maxEnemiesSlider: {fileID: 1574854615}
   gameConfig: {fileID: 11400000, guid: 2eefe099a76452844a2bd2d669346cac, type: 2}
-  savedFileExist: 0
 --- !u!114 &2144643785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5558,21 +5557,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameConfig: {fileID: 11400000, guid: 2eefe099a76452844a2bd2d669346cac, type: 2}
-  planetPrefab: {fileID: 9075096143188687751, guid: aad91a8ed855c134dac7bcb9e99e8c6e,
-    type: 3}
-  planetMaterials:
-  - {fileID: 2100000, guid: 98193c6ecdd7805449f7f3ec27a2add4, type: 2}
-  - {fileID: 2100000, guid: 18674a1534c9bd44a834c2bf56269842, type: 2}
-  - {fileID: 2100000, guid: 4628575222608b644a8e81cce862f107, type: 2}
-  - {fileID: 2100000, guid: fadc8368d27edd14188c2c32d2552d53, type: 2}
-  - {fileID: 2100000, guid: 2718450878eeaed4fad010973b4b9cd3, type: 2}
-  - {fileID: 2100000, guid: 72ca923472a99db44a542e9cf7e66e83, type: 2}
-  rocketPrefabs:
-  - {fileID: 5787352271267942601, guid: 95f29fb1013df0b488533f63d93992ba, type: 3}
-  - {fileID: 5787352271267942601, guid: 54b50c6955299d44faf38ee87bdaffe5, type: 3}
-  - {fileID: 5787352271267942601, guid: 0b01fdc33e4f3f4488a6bf4fc3be12f8, type: 3}
-  playerColor: {r: 0.005794438, g: 0.8980392, b: 0, a: 1}
-  enemyColor: {r: 0.8980392, g: 0.09634367, b: 0, a: 1}
 --- !u!1 &7140703952051722775
 GameObject:
   m_ObjectHideFlags: 0
@@ -5583,6 +5567,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7140703952051722772}
   - component: {fileID: 7140703952051722773}
+  - component: {fileID: 7140703952051722776}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -5590,3 +5575,15 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &7140703952051722776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7140703952051722775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b3ea6cc352aaf449a42caba44b48749, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
