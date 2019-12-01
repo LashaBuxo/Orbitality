@@ -13,8 +13,7 @@ public class MySlider : MonoBehaviour
 
      
     void Start()
-    {
-         
+    { 
         updateValue();
     }
 
@@ -31,6 +30,7 @@ public class MySlider : MonoBehaviour
         }
         pairedMySlider.updateValue();
     }
+
     public void updateValue()
     {
         this.value = (int)unitySlider.value;

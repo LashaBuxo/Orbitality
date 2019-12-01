@@ -28,44 +28,44 @@ public class GameManager : MonoBehaviour
 
         enemiesCount = Random.Range(minEnemies, maxEnemies + 1);
         totalPlanets = enemiesCount + 1;
-        fixCameraOrthoSize();
+        FixCameraOrthoSize();
 
-        generateRandomVariables();
-        generatePlanets();
-        attachControllers();
+        GenerateRandomVariables();
+        GeneratePlanets();
+        AttachControllers();
 
         gameStatus = GameStatus.Running;
     }
 
-    public void loadGame()
+    public void LoadGame()
     {
         string path = Path.Combine(Application.persistentDataPath, gameConfig.fileName);
         GameState gameState = JsonUtility.FromJson<GameState>(File.ReadAllText(path));
 
         enemiesCount = gameState.planetsStates.Count - 1;
         totalPlanets = enemiesCount + 1;
-        fixCameraOrthoSize();
+        FixCameraOrthoSize();
 
         planets.Clear();
-        generatePlanets(true, gameState);
-        attachControllers();
+        GeneratePlanets(true, gameState);
+        AttachControllers();
 
         Debug.Log("Game State Succesfully loaded from: " + Application.persistentDataPath + " path.");
         gameStatus = GameStatus.Running;
     }
 
-    private void fixCameraOrthoSize()
+    private void FixCameraOrthoSize()
     {
         Camera.main.orthographicSize = (totalPlanets + 0.5f) * gameConfig.distanceBetweenOrbits;
     } 
 
-    private void generateRandomVariables()
+    private void GenerateRandomVariables()
     { 
         randomMaterialsOrder = ComputationalFunctions.getRandomOrderFromInterval(totalPlanets, 0, totalPlanets); 
         randomOrbitsOrder = ComputationalFunctions.getRandomOrderFromInterval(totalPlanets, 0,totalPlanets); 
     } 
 
-    private void generatePlanets(bool isLoadRequest=false,GameState gameState=null)
+    private void GeneratePlanets(bool isLoadRequest=false,GameState gameState=null)
     {
         for (int i = 0; i < totalPlanets; i++)
         {
@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void attachControllers()
+    public void AttachControllers()
     { 
         planets[0].name += ":Player"; 
         planets[0].AddComponent<PlayerController>();
@@ -134,24 +134,24 @@ public class GameManager : MonoBehaviour
        return gameConfig.rocketPrefabs[(int)rocketType].GetComponent<RocketManager>().reloadCooldown;
     } 
 
-    public void planetDestroyed(bool isPlayer)
+    public void PlanetDestroyed(bool isPlayer)
     {
         if (isPlayer)
         {
             SoundManager.instance.playGameOver(false); 
             gameStatus = GameStatus.Finished;
-            StartCoroutine(finishAfter(0.5f, false));
+            StartCoroutine(FinishAfter(0.5f, false));
         }
         else enemiesCount--;
         if (enemiesCount == 0)
         {
             SoundManager.instance.playGameOver(true); 
             gameStatus = GameStatus.Finished;
-            StartCoroutine(finishAfter(0.5f, true)); 
+            StartCoroutine(FinishAfter(0.5f, true)); 
         } 
     }
 
-    IEnumerator finishAfter(float t,bool playerWon)
+    IEnumerator FinishAfter(float t,bool playerWon)
     {
         yield return new WaitForSeconds(t); 
         HUDManager.instance.FinishGame(playerWon);

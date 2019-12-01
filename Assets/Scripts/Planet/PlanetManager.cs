@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System;
 public class PlanetManager : MonoBehaviour
 {
+    [Header("Visual Parameters")]
     public Image healthBar;
     public ParticleSystem ring; 
     public GameObject explosionEffect;
@@ -27,12 +28,11 @@ public class PlanetManager : MonoBehaviour
     private RocketType rocketType;
     private GameObject rocketObj;  
     private int planetMatIndex;
-
-
+     
     public PlanetState getCurrentPlanetState()
     {
         return new PlanetState(rocketType,
-                                planetMatIndex,
+                           planetMatIndex,
                           controllerColor, 
                        transform.position, 
                                 currentHP, 
@@ -58,9 +58,9 @@ public class PlanetManager : MonoBehaviour
         {
             Debug.LogError("Ooops, Sun not found.");
         }
+
         orbitRadius = Vector3.Distance(transform.position, sunObj.transform.position);
-
-
+         
         healthBar.color = controllerColor;
         var ringMainPs = ring.main;
         ringMainPs.startColor = controllerColor;
@@ -69,8 +69,7 @@ public class PlanetManager : MonoBehaviour
         rocketReloadCooldown = GameManager.instance.GetRocketReloadCooldown(rocketType);
         updateRocketReloadingCooldown();
 
-        this.GetComponent<MeshRenderer>().material = GameManager.instance.GetMaterialWithIndex(planetMatIndex);
-        
+        this.GetComponent<MeshRenderer>().material = GameManager.instance.GetMaterialWithIndex(planetMatIndex); 
     }
     
     void Update()
@@ -84,19 +83,7 @@ public class PlanetManager : MonoBehaviour
         TryReloadingRocket();
 
         UpdateRocket();  
-    }
-
-    public void updateRocketReloadingCooldown()
-    { 
-        if (currentReloadCooldown < 0 )
-        {
-            currentStatus = PlanetStatus.readyToShoot; 
-        } else
-        { 
-            currentReloadCooldown -= Time.deltaTime;
-            currentStatus = PlanetStatus.reloading;
-        }
-    }
+    } 
 
     public void UpdatePlanet()
     {
@@ -104,11 +91,36 @@ public class PlanetManager : MonoBehaviour
         
         Vector3 vec = transform.position - sunObj.transform.position;
         transform.position= Quaternion.AngleAxis(Angle, Vector3.forward) * vec; 
+    } 
+
+    public void updateRocketReloadingCooldown()
+    {
+        if (currentReloadCooldown < 0)
+        {
+            currentStatus = PlanetStatus.readyToShoot;
+        }
+        else
+        {
+            currentReloadCooldown -= Time.deltaTime;
+            currentStatus = PlanetStatus.reloading;
+        }
+    }
+     
+    public void TryReloadingRocket()
+    {
+        if (currentStatus != PlanetStatus.readyToShoot || rocketObj != null) return; //rocket can't be loaded
+        rocketObj = Instantiate(GameManager.instance.GetRocketOfType(rocketType), transform);
+        rocketDirection = rocketObj.transform.position - transform.position;
     }
 
-    public Vector3 RotateAroundPoint(Vector3 point, Vector3 pivot, Quaternion angle)
+
+    public void UpdateRocket()
     {
-        return angle * (point - pivot) + pivot;
+        if (rocketObj == null) return; //Rocket is not loaded
+
+        Vector3 currentVector = (rocketObj.transform.position - transform.position).normalized;
+        float degree = Vector3.SignedAngle(currentVector, rocketDirection, Vector3.forward);
+        rocketObj.transform.RotateAround(transform.position, Vector3.forward, degree);
     }
 
     //must be colled from controller
@@ -128,10 +140,9 @@ public class PlanetManager : MonoBehaviour
         rocketObj = null;
     }
 
-
-    [NonSerialized]
-    public Vector2 rocketDirection;
     //must be colled from controller
+    [NonSerialized]
+    public Vector2 rocketDirection; 
     public void Command_SetRocketRotation(Vector3 rocketLookTarget)
     {
         if (GameManager.gameStatus != GameStatus.Running) return;
@@ -141,26 +152,22 @@ public class PlanetManager : MonoBehaviour
     private void updateHealthBar()
     {
         healthBar.fillAmount = currentHP / GameManager.instance.gameConfig.planetMaxHP;
-        if (currentHP == 0)
-        {  
-            DestroyPlanet();
-        }
-    }
-    public bool  IsPlayer()
-    {
-        return name.Contains("Player");
-    }
 
+        if (currentHP == 0)
+            DestroyPlanet(); 
+    }
+      
     private void DestroyPlanet()
     {
         SoundManager.instance.playPlanetFail();
         GameObject sfx = Instantiate(explosionEffect);
         sfx.transform.position = transform.GetChild(0).position;
         Destroy(sfx, sfx.GetComponent<ParticleSystem>().main.duration);
-        GameManager.instance.planetDestroyed(IsPlayer());
+        GameManager.instance.PlanetDestroyed(IsPlayer());
         Destroy(gameObject);
     }
 
+    //Must be called from Rocket which exploded on planet 
     public void DamageReceived()
     {
         Debug.Log("Damage Received on: " + transform.name);
@@ -168,28 +175,16 @@ public class PlanetManager : MonoBehaviour
         updateHealthBar();
     }
 
-    //while was in readyMode
+    //Must be called from Rocket which was hit in ReadyMode
     public void rocketDestroyed()
     {
         currentStatus = PlanetStatus.reloading; 
         currentReloadCooldown = rocketReloadCooldown;
         rocketObj = null;
     }
-
-    public void TryReloadingRocket()
+     
+    public bool IsPlayer()
     {
-        if (currentStatus != PlanetStatus.readyToShoot || rocketObj != null) return; //rocket can't be loaded
-        rocketObj = Instantiate(GameManager.instance.GetRocketOfType(rocketType),transform);
-        rocketDirection = rocketObj.transform.position - transform.position;
+        return name.Contains("Player");
     }
-     
-    public void UpdateRocket()
-    {
-        if (rocketObj == null) return; //Rocket is not loaded
-
-        Vector3 currentVector = (rocketObj.transform.position - transform.position).normalized; 
-        float degree = Vector3.SignedAngle(currentVector, rocketDirection, Vector3.forward); 
-        rocketObj.transform.RotateAround(transform.position, Vector3.forward, degree); 
-    } 
-     
 }

@@ -16,16 +16,12 @@ public class HUDManager : MonoBehaviour
 
     public PlanetManager playerManager; 
 
-    public static HUDManager instance;
-
+    public static HUDManager instance; 
     private void Awake()
     {
         instance = this;
-    }
-    void Start()
-    {
-        
-    }
+    } 
+
     public void onMenuClick()
     {
         UIManager.instance.updateMenu(MenuType.MainMenu); 
@@ -46,6 +42,7 @@ public class HUDManager : MonoBehaviour
             gameResult.color = Color.red;
         }
     }
+
     void Update()
     { 
         if (playerManager != null)

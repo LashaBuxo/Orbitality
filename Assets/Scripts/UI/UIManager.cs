@@ -133,7 +133,7 @@ public class UIManager : MonoBehaviour
             if (!isLoadRequest)
                 GameManager.instance.StartGame(minEnemiesSlider.value, maxEnemiesSlider.value);
             else
-                GameManager.instance.loadGame();
+                GameManager.instance.LoadGame();
         }
     }
 

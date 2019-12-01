@@ -7,9 +7,7 @@ public class MyButton : MonoBehaviour
 {
     public Color highlightBack;
     public Color normalBack;
-     
-     
-     
+      
     public void onPointerEnter()
     { 
         BackLight(true);
@@ -19,25 +17,12 @@ public class MyButton : MonoBehaviour
     { 
         BackLight(false);
     }
- 
-    
+  
     private void BackLight(bool up)
     {
         if (up)
             GetComponent<Image>().color = highlightBack;
         else
             GetComponent<Image>().color = normalBack;
-    }
-    
-
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    } 
 }

@@ -6,11 +6,16 @@ using System.Collections.Generic;
 [CreateAssetMenu(fileName = "GameConfiguration", menuName = "GameConfiguration", order = 1)]
 public class GameConfig : ScriptableObject
 {
-    [Header("Player Parameters")]
-    public int maxEnemyPlayers = 4;
+    [Header("Controllers Parameters")] 
+    public int maxEnemyPlayers = 4; 
     public Color playerColor = Color.green;
     public Color enemyColor = Color.red;
+
+    [Header("AI Parameters")]
+    public float shootRange = 20; 
+    public float shootMaximumDelay = 4;   
      
+
     [Header("Planet Parameters")] 
     public GameObject planetPrefab;
     public List<Material> planetMaterials;
