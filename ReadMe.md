@@ -1,18 +1,17 @@
 # Orbitality (Game) - Unity Project 
 
 ## General notes
-Project has been given during interview process of Ubisoft Kiev
+The project has been given during the interview process of Ubisoft Kiev
 
 Project completed in Unity (2019.2.13f1)
 
 ## Game Description
-You are in control of planet in Planetary System, where other planets are your enemies, which are controlled by AI logic.  Each planet has it's own rockets and can shoot them to any direction, where Planets gravity has its own effect on them. Collision Rocket and planet or other Rocket cause explosion. In case of planet it damages planet. 
-Your goal is to destroy enemy planets, before they destroy you. One way to achieve win, is defend planet with your rocket, or destroy other planets with your rockets.
+You are in control of the planet in the Planetary System, where other planets are your enemies, which are controlled by AI logic. Each planet has it's own rockets and can shoot them to any direction, where Planets gravity has its own effect on them. Collision Rocket and planet or other Rocket cause explosion. In case of the planet, it damages the planet. Your goal is to destroy enemy planets before they destroy you. One way to achieve a win, is to defend the planet with your rocket or destroy other planets using them.
 
 ![](screen_game.png)
 
 ## Game Configuration 
- Project contains scriptable object Config.asset, where all of the important variables are declared. Changing these variables causes change of Game Play visual and Physics
+ The project contains a scriptable object Config.asset, where all of the important variables are declared. Changing these variables causes a change of Game Play visual and Physics
  
 ![](screen_config.png)
 
@@ -21,7 +20,7 @@ There are 3 different **strategy** for **AI logic**:
 
 **random** - Rocket Direction is random and shoots instantly 
 
-**shootClosest** - Rocket is always towards to the closest planet, and will shoot whenever it is in Range
+**shootClosest** - Rocket is always towards the closest planet and will shoot whenever it is in Range
 
 **shootPlayer** - Shoots Rocket in direction of player instantly 
 
