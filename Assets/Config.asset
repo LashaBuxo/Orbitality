@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a68268c872ee37747bf36e452e665423, type: 3}
+  m_Name: Config
+  m_EditorClassIdentifier: 
+  maxEnemyPlayers: 4
+  playerColor: {r: 0, g: 1, b: 0, a: 1}
+  enemyColor: {r: 1, g: 0, b: 0, a: 1}
+  planetPrefab: {fileID: 9075096143188687751, guid: aad91a8ed855c134dac7bcb9e99e8c6e,
+    type: 3}
+  planetMaterials:
+  - {fileID: 2100000, guid: 98193c6ecdd7805449f7f3ec27a2add4, type: 2}
+  - {fileID: 2100000, guid: 18674a1534c9bd44a834c2bf56269842, type: 2}
+  - {fileID: 2100000, guid: 4628575222608b644a8e81cce862f107, type: 2}
+  - {fileID: 2100000, guid: fadc8368d27edd14188c2c32d2552d53, type: 2}
+  - {fileID: 2100000, guid: 2718450878eeaed4fad010973b4b9cd3, type: 2}
+  - {fileID: 2100000, guid: 72ca923472a99db44a542e9cf7e66e83, type: 2}
+  planetMaxHP: 100
+  gravityPower: 30
+  gravityRange: 30
+  planetRotationSpeed: 3
+  distanceBetweenOrbits: 10
+  rocketDamage: 15
+  destroyRocketsAfter: 10
+  rocketPrefabs:
+  - {fileID: 5787352271267942601, guid: 95f29fb1013df0b488533f63d93992ba, type: 3}
+  - {fileID: 5787352271267942601, guid: 54b50c6955299d44faf38ee87bdaffe5, type: 3}
+  - {fileID: 5787352271267942601, guid: 0b01fdc33e4f3f4488a6bf4fc3be12f8, type: 3}
+  fileName: gameState.json
